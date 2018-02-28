@@ -1,3 +1,8 @@
+using System;
+using System.Collections;
+
+namespace SkipTheBadEngine
+{
     /// <summary>
     /// Only random number generator to be used in the projects. Keeps the randomness of the projects deterministic.
     /// </summary>
@@ -78,3 +83,4 @@
             rand = new Random(seed);
         }
     }
+}
