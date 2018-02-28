@@ -1,4 +1,9 @@
-public static class Globals
+using Godot;
+using System.Collections.Generic;
+
+namespace SkipTheBadEngine
+{
+    public static class Globals
     {
         public static Camera Camera { get; set; }
 
@@ -69,4 +74,20 @@ public static class Globals
                 return (Vector3)collision.Current.Value;
             return Constants.Zero;
         }
+
+        public static Vector3 GroundPositionFrom(Vector3 here, out float distance)
+        {
+            var collision = PhysicsServer
+                .SpaceGetDirectState(Camera.GetWorld().GetSpace())
+                .IntersectRay(here, Constants.Bottom)
+                .GetEnumerator();
+            if (collision.MoveNext())
+            {
+                distance = here.DistanceTo((Vector3)collision.Current.Value);
+                return (Vector3)collision.Current.Value;
+            }
+            distance = 0;
+            return Constants.Zero;
+        }
     }
+}
